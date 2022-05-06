@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE configuration [
+        <!ELEMENT configuration (properties|typeAliases|environments|mappers)*>
+        <!ELEMENT properties (#PCDATA)>
+        <!ATTLIST properties
+                resource CDATA #REQUIRED>
+        <!ELEMENT typeAliases (package)*>
+        <!ELEMENT package (#PCDATA)>
+        <!ATTLIST package
+                name CDATA #REQUIRED>
+        <!ELEMENT environments (environment)*>
+        <!ATTLIST environments
+                default CDATA #REQUIRED>
+        <!ELEMENT environment (transactionManager|dataSource)*>
+        <!ATTLIST environment
+                id CDATA #REQUIRED>
+        <!ELEMENT transactionManager (#PCDATA)>
+        <!ATTLIST transactionManager
+                type CDATA #REQUIRED>
+        <!ELEMENT dataSource (property)*>
+        <!ATTLIST dataSource
+                type CDATA #REQUIRED>
+        <!ELEMENT property (#PCDATA)>
+        <!ATTLIST property
+                name CDATA #REQUIRED
+                value CDATA #REQUIRED>
+        <!ELEMENT mappers (package)*>
+        ]>
+<configuration>
+    <properties resource="jdbc.properties" />
+    <typeAliases>
+<!--        <typeAlias type="com.gl.mybatis.pojo.User"></typeAlias>-->
+        <package name="com.gl.mybatis.pojo"/>
+    </typeAliases>
+<!--    配置链接数据库的环境-->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+<!--    引入映射文件-->
+    <mappers>
+<!--        <mapper resource="mappers/UserMapper.xml"/>-->
+        <package name="com.gl.mybatis.mapper"/>
+    </mappers>
+</configuration>
